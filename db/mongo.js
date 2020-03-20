@@ -3,10 +3,10 @@ const winston = require('winston');
 
 const RECONNECT_INTERVAL = 1000;
 const CONNECT_OPTIONS = {
-	reconnectTries: 60 * 60 * 24,
-	reconnectInterval: RECONNECT_INTERVAL,
-	useNewUrlParser: true,
-	useUnifiedTopology: true
+	// reconnectTries: 60 * 60 * 24,
+	// reconnectInterval: RECONNECT_INTERVAL,
+	// useNewUrlParser: true,
+	// useUnifiedTopology: true
 };
 
 const mongo = {};
@@ -28,7 +28,7 @@ const composeConnectionUrl = env => {
 	return `mongodb://${credentials}${MONGO_HOST}:${MONGO_PORT}/${MONGO_DB}`;
 };
 
-const connectionUrlIsCorrect = uri => uri && uri.includes('mongodb://');
+const connectionUrlIsCorrect = uri => uri && uri.includes('mongodb');
 
 const getConnectionUrl = env => {
 	const { MONGO_URL } = env;

@@ -7,8 +7,13 @@ const { errors } = require('celebrate');
 
 const mongo = require('./db/mongo');
 const authorization = require('./routes/middlewares/authorization');
+
 const logger = require('./routes/middlewares/logger');
 const routes = require('./routes/routes');
+
+// //-- eth api
+// const ethWeb3Api = require('./routes/middlewares/ethWeb3Api');
+// const ethGasPricesApi = require('./routes/middlewares/ethGasPricesApi');
 
 // Enable KeepAlive to speed up HTTP requests to another microservices
 http.globalAgent.keepAlive = true;
@@ -19,19 +24,9 @@ app.disable('x-powered-by');
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.get('/healthcheck', (req, res) => {
-	try {
-		res.send({
-			uptime: Math.round(process.uptime()),
-			message: 'OK',
-			timestamp: Date.now(),
-			mongodb: mongo.isConnected()
-		});
-	} catch (e) {
-		res.status(503).end();
-	}
-});
 app.use(authorization);
+// app.use(ethWeb3Api);
+// app.use(ethGasPricesApi);
 app.use('/v1', routes);
 app.use(errors());
 app.use(logger);

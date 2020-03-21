@@ -39,10 +39,14 @@ const getSingleUserByEmail = async email => {
 
 const addUser = async data => {
 	const debug = Debug('app:api:users');
+	const { email } = data;
 	debug('add:start');
 
-	const insertResult = await mongo.db.collection('users').insertOne(data);
-	const { _id: id } = insertResult.ops[0];
+	const insertResult = await mongo.db
+		.collection('users')
+		.updateOne({ email }, { $set: data }, { upsert: true });
+	console.log('insertResult', insertResult);
+	const { _id: id } = insertResult.upsertedId || { _id: 0 };
 
 	debug('add:end');
 	return { id };

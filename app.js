@@ -6,7 +6,8 @@ const winston = require('winston');
 const { errors } = require('celebrate');
 
 const mongo = require('./db/mongo');
-const authorization = require('./routes/middlewares/authorization');
+// const authorization = require('./routes/middlewares/authorization');
+const healthCheck = require('./routes/controllers/healthCheck');
 
 const logger = require('./routes/middlewares/logger');
 const routes = require('./routes/routes');
@@ -24,7 +25,8 @@ app.disable('x-powered-by');
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(authorization);
+app.get('/healthCheck', healthCheck.status);
+// app.use(authorization);
 // app.use(ethWeb3Api);
 // app.use(ethGasPricesApi);
 app.use('/v1', routes);

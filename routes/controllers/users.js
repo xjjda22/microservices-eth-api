@@ -1,30 +1,42 @@
+const winston = require('winston');
 const { celebrate, Joi } = require('celebrate');
 const usersService = require('../../services/users');
+const security = require('../../helpers/security');
+const util = require('../../helpers/util');
 
-const getUsers = async ({ params }, res) => {
-	const users = await usersService.getUsers();
-	res.status(200).send(users);
+// const getUsers = async ({ params }, res) => {
+// 	const users = await usersService.getUsers();
+// 	res.status(200).send(users);
+// };
+
+const { JWT_JTI, JWT_SECRET } = process.env;
+
+const getSingleUserByEmail = async (req, res, next) => {
+	const {
+		jwt: { email }
+	} = req;
+	const user = await usersService.getSingleUserByEmail(email);
+	winston.info(`getuser -> user: `, user);
+	if (!util.isEmpty(user)) {
+		req.mangodb = {};
+		req.mangodb.rec = user;
+		next();
+	} else {
+		res.status(200).send({
+			error: 'user not found'
+		});
+	}
 };
 
-const getSingleUser = async ({ body, params: { userId } }, res) => {
-	const user = await usersService.getSingleUser(userId);
-	res.status(200).send(user);
-};
-
-const getSingleUserValidation = celebrate({
+const addEmailGetValidation = celebrate({
 	params: {
-		userId: Joi.string()
-			.regex(/^[0-9a-fA-F]{24}$/)
+		email: Joi.string()
+			.email()
 			.required()
 	}
 });
 
-const addUser = async ({ body }, res) => {
-	const user = await usersService.addUser(body);
-	res.status(200).send(user);
-};
-
-const addUserValidation = celebrate({
+const addEmailPostValidation = celebrate({
 	body: {
 		email: Joi.string()
 			.email()
@@ -32,22 +44,66 @@ const addUserValidation = celebrate({
 	}
 });
 
-const updateUser = async ({ body, params: { userId } }, res) => {
-	await usersService.updateUser(userId, body);
-	res.status(200).end();
+const addUser = async ({ body }, res) => {
+	const { email } = body;
+	const tokenPayload = {
+		jti: JWT_JTI,
+		secret: JWT_SECRET,
+		email
+	};
+	const token = await security.getSignedToken(tokenPayload);
+	const user = await usersService.addUser(body);
+	res.status(200).send({
+		...user,
+		token
+	});
 };
 
-const deleteUser = async ({ body, params: { userId } }, res) => {
-	const success = await usersService.deleteUser(userId);
+const updateUser = async (
+	{
+		body,
+		params,
+		jwt,
+		mangodb: {
+			rec: { id }
+		}
+	},
+	res
+) => {
+	const { email } = body;
+	const tokenPayload = {
+		jti: JWT_JTI,
+		secret: JWT_SECRET,
+		email
+	};
+	const token = await security.getSignedToken(tokenPayload);
+	await usersService.updateUser(id, body);
+	res.status(200).send({
+		token
+	});
+};
+
+const deleteUser = async (
+	{
+		body,
+		params,
+		jwt,
+		mangodb: {
+			rec: { id }
+		}
+	},
+	res
+) => {
+	const success = await usersService.deleteUser(id);
 	res.status(success ? 200 : 400).end();
 };
 
 module.exports = {
-	getUsers,
-	getSingleUser,
-	getSingleUserValidation,
+	// getUsers,
+	getSingleUserByEmail,
+	addEmailGetValidation,
+	addEmailPostValidation,
 	addUser,
-	addUserValidation,
 	updateUser,
 	deleteUser
 };

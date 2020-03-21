@@ -28,15 +28,13 @@ const getUsers = async () => {
 	return items;
 };
 
-const getSingleUser = async userId => {
+const getSingleUserByEmail = async email => {
 	const debug = Debug('app:api:users');
-	debug('getSingleUser:start');
-	const user = await mongo.db
-		.collection('users')
-		.findOne({ _id: new ObjectID(userId) });
+	debug('getSingleUserByEmail:start');
+	const user = await mongo.db.collection('users').findOne({ email });
 
-	debug('getSingleUser:end');
-	return renameFields(user);
+	debug('getSingleUserByEmail:end');
+	return user ? renameFields(user) : {};
 };
 
 const addUser = async data => {
@@ -73,7 +71,7 @@ const deleteUser = async userId => {
 
 module.exports = {
 	getUsers,
-	getSingleUser,
+	getSingleUserByEmail,
 	addUser,
 	updateUser,
 	deleteUser

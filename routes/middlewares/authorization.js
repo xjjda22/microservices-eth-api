@@ -21,6 +21,8 @@ const checkTokenInBlacklistCallback = async (req, payload, done) => {
 		// else if(JWT_EMAIL != email) tokenIsRevoked = true;
 		else tokenIsRevoked = false;
 
+		req.jwt = payload;
+
 		return done(null, tokenIsRevoked);
 	} catch (e) {
 		return done(e, SET_TOKEN_AS_REVOKEN_ON_EXCEPTION);

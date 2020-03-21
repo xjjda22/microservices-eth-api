@@ -25,10 +25,13 @@ app.disable('x-powered-by');
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 app.get('/healthCheck', healthCheck.status);
 // app.use(authorization);
+
 // app.use(ethWeb3Api);
 // app.use(ethGasPricesApi);
+
 app.use('/v1', routes);
 app.use(errors());
 app.use(logger);

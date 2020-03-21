@@ -27,6 +27,7 @@ router.put(
 	'/users/:email',
 	users.addEmailGetValidation,
 	users.addEmailPostValidation,
+	users.isEmailSameValidation,
 	users.getSingleUserByEmail,
 	users.updateUser
 );

@@ -10,7 +10,8 @@ const getSignedToken = (payload, jwtOptions) =>
 			JWT_PRIVATE_KEY,
 			{
 				...jwtOptions,
-				algorithm: 'RS256'
+				algorithm: 'RS256',
+				expiresIn: '1d'
 			},
 			(err, token) => (err ? reject(err) : resolve(token))
 		);

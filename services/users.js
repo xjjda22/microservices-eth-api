@@ -45,7 +45,6 @@ const addUser = async data => {
 	const insertResult = await mongo.db
 		.collection('users')
 		.updateOne({ email }, { $set: data }, { upsert: true });
-	console.log('insertResult', insertResult);
 	const { _id: id } = insertResult.upsertedId || { _id: 0 };
 
 	debug('add:end');

@@ -44,6 +44,15 @@ const addEmailPostValidation = celebrate({
 	}
 });
 
+const isEmailSameValidation = (
+	{ params: { email }, body: { email: emailBody } },
+	res,
+	next
+) => {
+	if (email !== emailBody) next({ message: 'email not same' });
+	next();
+};
+
 const addUser = async ({ body }, res) => {
 	const { email } = body;
 	const tokenPayload = {
@@ -52,10 +61,10 @@ const addUser = async ({ body }, res) => {
 		email
 	};
 	const token = await security.getSignedToken(tokenPayload);
-	const user = await usersService.addUser(body);
+	const bodyData = { ...body, token };
+	const user = await usersService.addUser(bodyData);
 	res.status(200).send({
-		...user,
-		token
+		user
 	});
 };
 
@@ -77,7 +86,8 @@ const updateUser = async (
 		email
 	};
 	const token = await security.getSignedToken(tokenPayload);
-	await usersService.updateUser(id, body);
+	const bodyData = { ...body, token };
+	await usersService.updateUser(id, bodyData);
 	res.status(200).send({
 		token
 	});
@@ -103,6 +113,7 @@ module.exports = {
 	getSingleUserByEmail,
 	addEmailGetValidation,
 	addEmailPostValidation,
+	isEmailSameValidation,
 	addUser,
 	updateUser,
 	deleteUser

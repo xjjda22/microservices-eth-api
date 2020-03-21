@@ -5,7 +5,7 @@ const mongo = require('../db/mongo');
 
 const tokenPayload = {
 	jti: '123',
-	email: 'test@example.com'
+	email: 'admin@admin.com'
 };
 
 const delay = ms => setTimeout(() => Promise.resolve(), ms);

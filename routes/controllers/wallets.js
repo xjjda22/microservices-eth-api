@@ -259,7 +259,7 @@ const coinList = (req, res) => {
 
 const coinDetails = ({ params: { symbol } }, res) => {
 	axios
-		.get(`https://api.coincap.io/v2/assets/{symbol}`)
+		.get(`https://api.coincap.io/v2/assets/${symbol}`)
 		.then(({ data }) => {
 			// handle success
 			winston.info(`eth coin api -> success. data: `, data);
@@ -275,7 +275,7 @@ const coinDetails = ({ params: { symbol } }, res) => {
 
 const coinHistory = ({ params: { symbol } }, res) => {
 	axios
-		.get(`https://api.coincap.io/v2/assets/{symbol}/history?interval=d1`)
+		.get(`https://api.coincap.io/v2/assets/${symbol}/history?interval=d1`)
 		.then(({ data }) => {
 			// handle success
 			winston.info(`eth coin api -> success. data: `, data);
@@ -291,7 +291,7 @@ const coinHistory = ({ params: { symbol } }, res) => {
 
 const coinOnExchanges = ({ params: { symbol } }, res) => {
 	axios
-		.get(`https://api.coincap.io/v2/assets/{symbol}/markets?limit=20`)
+		.get(`https://api.coincap.io/v2/assets/${symbol}/markets?limit=20`)
 		.then(({ data }) => {
 			// handle success
 			winston.info(`eth coin api -> success. data: `, data);

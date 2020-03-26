@@ -1,4 +1,4 @@
-![](microservice.png)
+3![](microservice.png)
 
 # Ready to use Node.js microservice
 
@@ -32,7 +32,7 @@ ssh-keygen -t rsa -b 2048 -q -N '' -m PEM -f private.key \
 # Install all dependencies
 npm install
 
-# Run on port 4000
+# Run on port 3000
 npm start
 ```
 
@@ -58,7 +58,7 @@ ssh-keygen -t rsa -b 2048 -q -N '' -m PEM -f private.key \
 docker build -t app/microservice:v1 .
 
 # Run on port 4000
-docker run -p 4000:4000 -d --name microservice app/microservice:v1
+docker run -p 3000:3000 -d --name microservice app/microservice:v1
 
 # Run on host network
 docker run -d --name microservice --network=host app/microservice:v1
@@ -87,6 +87,11 @@ SQL_USER|postgres
 SQL_PASS|
 SQL_DIALECT|postgres
 SQL_POOL_LIMIT|100
+JWT_JTI|******
+JWT_SECRET|******
+JWT_EMAIL|test@example.com
+ETHSCANAPI_TOKEN|******
+ETHWEB3API_URL|https://rinkeby.infura.io/v3/*****
 
 ## Structure
 

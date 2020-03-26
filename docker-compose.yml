@@ -27,7 +27,7 @@ services:
     volumes:
       - ./:/home/node/app
     ports:
-      - "4000:4000"
+      - "3000:3000"
     depends_on:
       - mongo
     links:

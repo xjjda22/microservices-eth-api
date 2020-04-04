@@ -52,7 +52,7 @@ describe(getBalance, () => {
 			.then(res => {
 				expect(res.body).toHaveProperty('balance');
 			});
-	}, 6000);
+	}, 10000);
 
 	test(`get ${transactionDetails}/<tx>`, async () => {
 		await request(app)
@@ -65,7 +65,7 @@ describe(getBalance, () => {
 				expect(res.body).toHaveProperty('blockNumber');
 				expect(res.body).toHaveProperty('amount');
 			});
-	});
+	}, 10000);
 
 	test(`get ${transactionList}/<address>`, async () => {
 		await request(app)
@@ -79,5 +79,5 @@ describe(getBalance, () => {
 				expect(res.body).toHaveProperty('result');
 				expect(Array.isArray(res.body.result)).toEqual(true);
 			});
-	});
+	}, 10000);
 });

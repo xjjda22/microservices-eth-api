@@ -41,6 +41,8 @@ describe(getBalance, () => {
 			});
 	});
 
+	afterAll(() => mongo.disconnect());
+
 	test(`get ${getBalance}/<address>`, async () => {
 		await request(app)
 			.get(`${getBalance}/${address}`)
@@ -63,7 +65,7 @@ describe(getBalance, () => {
 				expect(res.body).toHaveProperty('blockNumber');
 				expect(res.body).toHaveProperty('amount');
 			});
-	}, 6000);
+	});
 
 	test(`get ${transactionList}/<address>`, async () => {
 		await request(app)
@@ -74,6 +76,8 @@ describe(getBalance, () => {
 			.then(res => {
 				expect(res.body).toHaveProperty('status');
 				expect(res.body).toHaveProperty('message');
+				expect(res.body).toHaveProperty('result');
+				expect(Array.isArray(res.body.result)).toEqual(true);
 			});
-	}, 6000);
+	});
 });

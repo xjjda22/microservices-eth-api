@@ -35,6 +35,8 @@ describe(route, () => {
 			});
 	});
 
+	afterAll(() => mongo.disconnect());
+
 	test(`post ${route}`, async () => {
 		await request(app)
 			.post(route)

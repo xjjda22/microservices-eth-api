@@ -5,13 +5,13 @@ const mongo = require('../../db/mongo');
 
 const route = '/v1/users';
 const wallets = 'wallets api';
-// const getBalance = '/v1/getBalance';
-// const transactionDetails = '/v1/transactionDetails';
+const getBalance = '/v1/getBalance';
+const transactionDetails = '/v1/transactionDetails';
 const transactionList = '/v1/transactionList';
 const coinList = '/v1/coinList';
 
 const address = '0x70DeFb7B30D575758ea0405ff26C3646CcCa0E10';
-// const tx = '0x8c2e8d33859bc823894dd4f4c262c91e973f5ac66c3c6b8c241454086c85679f';
+const tx = '0x8c2e8d33859bc823894dd4f4c262c91e973f5ac66c3c6b8c241454086c85679f';
 
 // const tokenPayload = {
 // 	jti: '123',
@@ -45,29 +45,29 @@ describe(wallets, () => {
 
 	afterAll(() => mongo.disconnect());
 
-	// test(`get ${getBalance}/<address>`, async () => {
-	// 	await request(app)
-	// 		.get(`${getBalance}/${address}`)
-	// 		.set('Authorization', `Bearer ${token}`)
-	// 		.expect(200)
-	// 		.expect('Content-Type', /json/)
-	// 		.then(res => {
-	// 			expect(res.body).toHaveProperty('balance');
-	// 		});
-	// }, 10000);
+	test(`get ${getBalance}/<address>`, async () => {
+		await request(app)
+			.get(`${getBalance}/${address}`)
+			.set('Authorization', `Bearer ${token}`)
+			.expect(200)
+			.expect('Content-Type', /json/)
+			.then(res => {
+				expect(res.body).toHaveProperty('balance');
+			});
+	}, 10000);
 
-	// test(`get ${transactionDetails}/<tx>`, async () => {
-	// 	await request(app)
-	// 		.get(`${transactionDetails}/${tx}`)
-	// 		.set('Authorization', `Bearer ${token}`)
-	// 		.expect(200)
-	// 		.expect('Content-Type', /json/)
-	// 		.then(res => {
-	// 			expect(res.body).toHaveProperty('blockHash');
-	// 			expect(res.body).toHaveProperty('blockNumber');
-	// 			expect(res.body).toHaveProperty('amount');
-	// 		});
-	// }, 10000);
+	test(`get ${transactionDetails}/<tx>`, async () => {
+		await request(app)
+			.get(`${transactionDetails}/${tx}`)
+			.set('Authorization', `Bearer ${token}`)
+			.expect(200)
+			.expect('Content-Type', /json/)
+			.then(res => {
+				expect(res.body).toHaveProperty('blockHash');
+				expect(res.body).toHaveProperty('blockNumber');
+				expect(res.body).toHaveProperty('amount');
+			});
+	}, 10000);
 
 	test(`get ${transactionList}/<address>`, async () => {
 		await request(app)

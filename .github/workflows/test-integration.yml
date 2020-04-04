@@ -20,6 +20,8 @@ jobs:
           openssl rsa -in private.key -pubout -outform PEM -out public.key
           chmod 644 public.key private.key
         env:
-          ETHSCANAPI_TOKEN: ${{ secrets.ETHSCANAPI_TOKEN }}
+          MONGO_URL: ${{ secrets.MONGO_URL }}
+          ETHWEB3API_URL: ${{ secrets.ETHWEB3API_URL }}
+          ETHWEB3API_URL: ${{ secrets.ETHWEB3API_URL }}
       - name: Test
         run: docker-compose up --exit-code-from web

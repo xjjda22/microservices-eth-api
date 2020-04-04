@@ -62,9 +62,9 @@ const addUser = async ({ body }, res) => {
 	};
 	const token = await security.getSignedToken(tokenPayload);
 	const bodyData = { ...body, token };
-	const user = await usersService.addUser(bodyData);
+	await usersService.addUser(bodyData);
 	res.status(200).send({
-		user
+		token
 	});
 };
 

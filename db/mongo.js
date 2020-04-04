@@ -6,7 +6,7 @@ const CONNECT_OPTIONS = {
 	// reconnectTries: 60 * 60 * 24,
 	// reconnectInterval: RECONNECT_INTERVAL,
 	// useNewUrlParser: true,
-	// useUnifiedTopology: true
+	useUnifiedTopology: true
 };
 
 const mongo = {};

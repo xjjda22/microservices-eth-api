@@ -19,5 +19,7 @@ jobs:
           rm private.key.pub
           openssl rsa -in private.key -pubout -outform PEM -out public.key
           chmod 644 public.key private.key
+        env:
+          ETHSCANAPI_TOKEN: ${{ secrets.ETHSCANAPI_TOKEN }}
       - name: Test
         run: docker-compose up --exit-code-from web

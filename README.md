@@ -1,6 +1,4 @@
-![](microservice.png)
-
-# Ready to use Node.js microservice
+# Ready to use - Ethereum Api
 
 ## Features
 - **Framework**: Express

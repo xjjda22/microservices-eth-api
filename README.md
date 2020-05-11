@@ -15,6 +15,7 @@
 - Well structured
 - API versioning
 - Request Validation
+- **Ethereum Api**: infura, web3, etherscan, coincap
 
 ## Getting Started
 ```shell

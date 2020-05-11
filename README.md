@@ -17,6 +17,11 @@
 - Request Validation
 - **Ethereum Api**: infura, web3, etherscan, coincap
 
+## Reference
+- https://rinkeby.infura.io
+- https://etherscan.io/apis
+- https://docs.coincap.io/
+
 ## Getting Started
 ```shell
 git clone https://github.com/harryranakl/microservices-eth-api

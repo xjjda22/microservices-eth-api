@@ -1,4 +1,4 @@
-3![](microservice.png)
+![](microservice.png)
 
 # Ready to use Node.js microservice
 

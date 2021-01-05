@@ -32,7 +32,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bip39": "^2.5.0",
     "body-parser": "^1.19.0",
     "celebrate": "^10.1.0",
@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "autocannon": "^4.6.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bip39": "^2.5.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",

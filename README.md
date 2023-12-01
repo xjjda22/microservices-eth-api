@@ -22,7 +22,7 @@
 
 ## Getting Started
 ```shell
-git clone https://github.com/harryranakl/microservices-eth-api
+git clone https://github.com/xjjda22/microservices-eth-api
 cd microservice
 
 # Create environment variables from example
